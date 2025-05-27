@@ -9,7 +9,18 @@ import * as React from "react"
 // 🐶 Remplace tous les `<button>👍</button>` par le proxy composant 'Button'
 
 const Button = () => {
-  return <button>👍</button>
+  return (
+    <input
+      type="Button"
+      value="👍"
+      style={{
+        backgroundColor: "lightblue",
+        border: "none",
+        padding: "6px 6px",
+        cursor: "pointer",
+      }}
+    />
+  )
 }
 
 function Header() {
