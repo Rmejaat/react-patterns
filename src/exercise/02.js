@@ -1,4 +1,7 @@
 "use client"
+
+import { useState } from "react"
+
 // Props Functions
 // http://localhost:3000/alone/exercise/02.js
 
@@ -15,10 +18,31 @@ function Calcul({ nb1, nb2, operation }) {
   // 📑 https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Function/name
 
   // 🐶 Modifie la chaine de caractère ci-dessous pour la rendre dynamique
+
+  const [result, setResult] = useState()
+  const [nombre1, setNombre1] = useState(nb1)
+  const [nombre2, setNombre2] = useState(nb2)
+
+  const handleClick = (a = nb1, b = nb2) => {
+    if (a instanceof Object) {
+      a = nb1
+    }
+    setNombre1(a)
+    setNombre2(b)
+    setResult(operation(nombre1, nombre2))
+  }
+
   return (
     <div>
-      L'opération {operation.name} de {nb1} et {nb2} donne
-      {` ${operation(nb1, nb2)}`}
+      {result === undefined
+        ? null
+        : `L'opération ${operation.name} de ${nombre1} et ${nombre2} donne
+      ${result}
+      `}
+      <button onClick={handleClick}>Caculer {operation.name}</button>
+      <button onClick={() => handleClick(50, 20)}>
+        Caculer {operation.name}
+      </button>
     </div>
   )
 }
@@ -26,17 +50,11 @@ function Calcul({ nb1, nb2, operation }) {
 function App() {
   // 🐶 Déclare une fonction 'somme' et passe la en prop de '<Calcul>'
   // 🤖 <Calcul operation={somme} />
-  const somme = (nb1, nb2) => {
-    return nb1 + nb2
-  }
+  const somme = (nb1, nb2) => nb1 + nb2
 
-  const multiplication = (nb1, nb2) => {
-    return nb1 * nb2
-  }
+  const multiplication = (nb1, nb2) => nb1 * nb2
 
-  const exposant = (nb1, nb2) => {
-    return nb1 * Math.exp(nb2)
-  }
+  const exposant = (nb1, nb2) => nb1 * Math.exp(nb2)
 
   // 🐶 Déclare une fonction 'multiplication' et passe la en prop de '<Calcul>'
 
